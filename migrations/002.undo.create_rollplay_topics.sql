@@ -1,0 +1,4 @@
+ALTER TABLE rollplay_topics
+  DROP COLUMN IF EXISTS topicId
+
+DROP TABLE IF EXISTS rollplay_topics CASCADE

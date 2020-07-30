@@ -1,0 +1,4 @@
+ALTER TABLE rollplay_users
+  DROP COLUMN IF EXISTS userId;
+
+DROP TABLE IF EXISTS rollplay_users CASCADE
