@@ -1,8 +1,8 @@
-const express = require('express');
-const CommentsService = require('./comments-service.js');
-const { requireAuth } = require('../middleware/jwt-auth');
+// const express = require('express');
+// const CommentsService = require('./comments-service.js');
+// const { requireAuth } = require('../middleware/jwt-auth');
 
-const CommentsRouter = express.Router();
+// const CommentsRouter = express.Router();
 
-CommentsRouter
-  .route('/topicdetail/id')
+// CommentsRouter
+//   .route('/topicdetail/id')
