@@ -9,7 +9,7 @@ const bodyParser = express.json();
 const TopicsRouter = express.Router();
 
 TopicsRouter
-  .route('/')
+  .route('/topics')
   // .all(requireAuth)
   .get((req, res, next) => {
     let keyword;

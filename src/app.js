@@ -5,7 +5,9 @@ const cors = require('cors');
 const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 const Topics = require('./topics/topics-router');
+const UserRouter = require('./users/user-router');
 const TopicsRouter = require('./topics/topics-router');
+const CommentsRouter = require('./comments/comments-router');
 // const Comments = require('./comments/comments-router');
 const app = express();
 
@@ -17,7 +19,8 @@ app.use(morgan(morganOption));
 app.use(helmet());
 app.use(cors());
 app.use('/topics', TopicsRouter);
-// app.use('/api/comments', Comments);
+app.use('/comments', CommentsRouter);
+app.use('/login', UserRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello, world!');
