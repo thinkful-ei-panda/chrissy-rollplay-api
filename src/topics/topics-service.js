@@ -1,38 +1,19 @@
 const TopicsService = {
   getAllTopics(db) {
     return db
-      .select(
-        'rollplay_topics.topic_id',
-        'rollplay_topics.title',
-        'rollplay_topics.topic_desc',
-        'rollplay_topics.rpg_system',
-        'rollplay_topics.date_created',
-        'rollplay_topics.topic_owner')
+      .select('*')
       .from('rollplay_topics');
   },
 
   getTopicsBySystem(db, system) {
     return db
-      .select(
-        'rollplay_topics.topic_id',
-        'rollplay_topics.title',
-        'rollplay_topics.topic_desc',
-        'rollplay_topics.rpg_system',
-        'rollplay_topics.date_created',
-        'rollplay_topics.topic_owner')
-      .from('rollplay_topics')
+      .select('*')
       .where('rpg_system', system);
   },
   
   getTopicByName(db, name) {
     return db
-      .select(
-        'rollplay_topics.topic_id',
-        'rollplay_topics.title',
-        'rollplay_topics.topic_desc',
-        'rollplay_topics.rpg_system',
-        'rollplay_topics.date_created',
-        'rollplay_topics.topic_owner')
+      .select('*')
       .from('rollplay_topics')
       .where(
         db.raw(
@@ -43,13 +24,7 @@ const TopicsService = {
 
   getTopicsBySystemAndName(db, name, system) {
     return db
-      .select(
-        'rollplay_topics.topic_id',
-        'rollplay_topics.title',
-        'rollplay_topics.topic_desc',
-        'rollplay_topics.rpg_system',
-        'rollplay_topics.date_created',
-        'rollplay_topics.topic_owner')
+      .select('*')
       .from('rollplay_topics')
       .where(
         db.raw(`rpg_system = '${system}'
@@ -73,20 +48,20 @@ const TopicsService = {
       .then(([topic]) => topic);
   },
 
-  editTopic(db, newEdits, topic_id, user_id) {
+  editTopic(db, newEdits, topic_id, topic_passphrase) {
     return db('rollplay_topics')
       .update(newEdits)
       .where(
         db.raw(`rollplay_topics.topic_id=${topic_id}
-        and rollplay_topics.topic_owner=${user_id}`)
+        and rollplay_topics.topic_owner=${topic_passphrase}`)
       );
   },
 
-  deleteTopic(db, topic_id, user_id) {
+  deleteTopic(db, topic_id, topic_passphrase) {
     return db('rollplay_topics')
       .where(
         db.raw(`rollplay_topics.topic_id=${topic_id}
-        and rollplay_topics.topic_owner=${user_id}`)
+        and rollplay_topics.topic_passphrase=${topic_passphrase}`)
       )
       .delete();
   }

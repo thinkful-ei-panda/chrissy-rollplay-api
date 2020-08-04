@@ -4,7 +4,9 @@ CREATE TABLE rollplay_topics (
   topic_desc TEXT,
   rpg_system TEXT,
   date_created TIMESTAMPTZ NOT NULL DEFAULT now(),
-  topic_owner INTEGER
+  topic_owner TEXT,
+  topic_passphrase TEXT,
+  topic_solved BOOLEAN DEFAULT 'FALSE'
 );
 
 

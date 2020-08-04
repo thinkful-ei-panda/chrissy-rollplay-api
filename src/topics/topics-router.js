@@ -2,15 +2,12 @@
 /* eslint-disable indent */
 const express = require('express');
 const TopicsService = require('./topics-service.js');
-const { requireAuth } = require('../middleware/jwt-auth');
-const CommentsService =require('../comments/comments-service.js');
 const bodyParser = express.json();
 
 const TopicsRouter = express.Router();
 
 TopicsRouter
   .route('/topics')
-  // .all(requireAuth)
   .get((req, res, next) => {
     let keyword;
     keyword = req.query.keyword;
@@ -55,10 +52,10 @@ TopicsRouter
     }
   })
   .post(bodyParser, (req, res, next) => {
-    const { title, topic_desc, rpg_system, topic_owner } = req.body;
-    const newTopic = { title: title, topic_desc: topic_desc, rpg_system: rpg_system, topic_owner: topic_owner };
+    const { title, topic_desc, rpg_system, topic_owner, topic_passphrase } = req.body;
+    const newTopic = { title: title, topic_desc: topic_desc, rpg_system: rpg_system, topic_owner: topic_owner, topic_passphrase: topic_passphrase };
     
-    if( title === null || topic_desc === null)
+    if( title === null || topic_desc === null )
       return res.status(400).json({error: `Missing 'Title' and 'Description' in request body`});
 
     TopicsService.postNewTopic(
@@ -74,7 +71,6 @@ TopicsRouter
 
 TopicsRouter
   .route('/:id')
-  // .all(requireAuth)
   .all((req, res, next) => {
     const { id } = req.params;
     TopicsService.getById(req.app.get('db'), id)
@@ -93,39 +89,33 @@ TopicsRouter
     res.json(res.topic);
   })
   .patch(bodyParser, (req, res, next) => {
-    // const { topic_id, user_id } = req.params;
-    const { topic_id, user_id, title, topic_desc, rpg_system } = req.body;
+    const { topic_id, topic_owner, title, topic_desc, rpg_system, topic_solved } = req.body;
     
     const newEdits = {
       title: (title === '') ? undefined : title,
       topic_desc: (topic_desc === '') ? undefined : topic_desc,
-      rpg_system: rpg_system
+      rpg_system: rpg_system,
+      topic_solved: topic_solved
     };
 
     if(newEdits.title === undefined && topic_desc === undefined && newEdits.rpg_system === undefined)
       return res.status(400).json({error: 'Needs at least one updated field'});
-    
-    // TopicsService.getById(req.app.get('db'), topic_id)
-    //   .then(topic => {
-    //     if(!topic)
-    //       return res.status(401).json({error: 'Could not find topic'});
         
-      TopicsService.editTopic(req.app.get('db'), newEdits, topic_id, user_id)
+      TopicsService.editTopic(req.app.get('db'), newEdits, topic_id, topic_owner)
         .then(() => {
           return res.status(204).end();
         })
         .catch(next);
       })
-      
-  // })
+    
   .delete(bodyParser, (req, res, next) => {
-    const { topic_id, user_id } = req.body;
+    const { topic_id, comment_owner } = req.body;
 
-    console.log(topic_id, user_id);
+    console.log(topic_id, comment_owner);
     TopicsService.deleteTopic(
       req.app.get('db'),
       topic_id,
-      user_id
+      comment_owner
     )
     .then(() => {
       res
@@ -135,3 +125,4 @@ TopicsRouter
   });
 
 module.exports = TopicsRouter;
+//

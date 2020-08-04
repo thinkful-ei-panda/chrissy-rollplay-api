@@ -3,5 +3,7 @@ CREATE TABLE rollplay_comments (
   comment_desc TEXT,
   date_created TIMESTAMPTZ NOT NULL DEFAULT now(),
   comment_thread INTEGER,
-  comment_owner INTEGER
+  comment_owner TEXT,
+  comment_passphrase TEXT,
+  marked_solution BOOLEAN DEFAULT 'FALSE'
 );
