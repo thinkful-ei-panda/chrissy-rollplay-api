@@ -31,12 +31,9 @@ const CommentsService = {
       );
   },
 
-  deleteComment(db, comment_id, comment_passphrase) {
+  deleteComment(db, comment_id) {
     return db('rollplay_comments')
-      .where(
-        db.raw(`rollplay_comments.comment_passphrase=${comment_passphrase}
-        and rollplay_comments.comment_id=${comment_id}`)
-      )
+      .where({comment_id})
       .delete();
   }
 };

@@ -1,14 +1,14 @@
 const express = require('express');
 const CommentsService = require('./comments-service.js');
-const TopicsService = require('../topics/topics-service.js');
 const bodyParser = express.json();
 
 const CommentsRouter = express.Router();
 
 CommentsRouter
-  .route('/comments')
+  .route('/:comment_id')
   .get((req, res, next) => {
-    CommentsService.getAllComments(req.app.get('db'))
+    const id = req.params.comment_id;
+    CommentsService.getCommentsByTopic(req.app.get('db'), id)
       .then(comments => {
         res
           .status(200)
@@ -47,13 +47,12 @@ CommentsRouter
       })
       .catch(next);
   })
-  .delete(bodyParser, (req, res, next) => {
-    const { comment_id, comment_owner } = req.body;
+  .delete((req, res, next) => {
+    const comment_id = req.params.comment_id;
 
-    TopicsService.deleteTopic(
+    CommentsService.deleteComment(
       req.app.get('db'),
-      comment_id,
-      comment_owner
+      comment_id
     )
       .then(() => {
         res

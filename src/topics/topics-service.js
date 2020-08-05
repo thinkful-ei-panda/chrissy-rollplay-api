@@ -48,21 +48,15 @@ const TopicsService = {
       .then(([topic]) => topic);
   },
 
-  editTopic(db, newEdits, topic_id, topic_passphrase) {
+  editTopic(db, newEdits, topic_id) {
     return db('rollplay_topics')
-      .update(newEdits)
-      .where(
-        db.raw(`rollplay_topics.topic_id=${topic_id}
-        and rollplay_topics.topic_owner=${topic_passphrase}`)
-      );
+      .where({topic_id})
+      .update(newEdits);
   },
 
-  deleteTopic(db, topic_id, topic_passphrase) {
+  deleteTopic(db, topic_id) {
     return db('rollplay_topics')
-      .where(
-        db.raw(`rollplay_topics.topic_id=${topic_id}
-        and rollplay_topics.topic_passphrase=${topic_passphrase}`)
-      )
+      .where({topic_id})
       .delete();
   }
 };

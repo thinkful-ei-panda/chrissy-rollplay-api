@@ -70,10 +70,10 @@ TopicsRouter
   });
 
 TopicsRouter
-  .route('/:id')
+  .route('/:topic_id')
   .all((req, res, next) => {
-    const { id } = req.params;
-    TopicsService.getById(req.app.get('db'), id)
+    const { topic_id } = req.params;
+    TopicsService.getById(req.app.get('db'), topic_id)
     .then(topic => {
       if(!topic) {
         return res
@@ -89,33 +89,32 @@ TopicsRouter
     res.json(res.topic);
   })
   .patch(bodyParser, (req, res, next) => {
-    const { topic_id, topic_owner, title, topic_desc, rpg_system, topic_solved } = req.body;
+    const { topic_id, title, topic_desc, rpg_system } = req.body;
     
     const newEdits = {
       title: (title === '') ? undefined : title,
       topic_desc: (topic_desc === '') ? undefined : topic_desc,
-      rpg_system: rpg_system,
-      topic_solved: topic_solved
+      rpg_system: rpg_system
     };
 
     if(newEdits.title === undefined && topic_desc === undefined && newEdits.rpg_system === undefined)
       return res.status(400).json({error: 'Needs at least one updated field'});
         
-      TopicsService.editTopic(req.app.get('db'), newEdits, topic_id, topic_owner)
+      TopicsService.editTopic(req.app.get('db'), newEdits, topic_id)
         .then(() => {
-          return res.status(204).end();
+          return res
+          .status(204)
+          .json({message: 'Topic edited'});
         })
         .catch(next);
       })
     
   .delete(bodyParser, (req, res, next) => {
-    const { topic_id, comment_owner } = req.body;
+    const { topic_id } = req.params;
 
-    console.log(topic_id, comment_owner);
     TopicsService.deleteTopic(
       req.app.get('db'),
-      topic_id,
-      comment_owner
+      topic_id
     )
     .then(() => {
       res
@@ -125,4 +124,3 @@ TopicsRouter
   });
 
 module.exports = TopicsRouter;
-//
