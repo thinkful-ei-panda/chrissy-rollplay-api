@@ -17,9 +17,9 @@ CommentsRouter
   });
 
 CommentsRouter
-  .route('/:comment_id')
+  .route('/:topic_id')
   .get((req, res, next) => {
-    const id = req.params.comment_id;
+    const id = req.params.topic_id;
     CommentsService.getCommentsByTopic(req.app.get('db'), id)
       .then(comments => {
         res
