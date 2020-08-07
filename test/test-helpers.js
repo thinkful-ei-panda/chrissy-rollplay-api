@@ -65,12 +65,28 @@ function createCommentArray() {
   ];
 }
 
-function createFixtures() {
-  const testTopicList = createTopicArray();
-  const testCommentList = createCommentArray();
+// function createFixtures() {
+//   const testTopicList = createTopicArray();
+//   const testCommentList = createCommentArray();
 
-  return { testTopicList, testCommentList };
-}
+//   return { testTopicList, testCommentList };
+// }
+
+// function seedTopics(db, testTopicList) {
+//   return db.into('rollplay_topics').insert(testTopicList);
+// }
+
+// function seedComments(db, testCommentList) {
+//   return db.into('rollplay_comments').insert(testCommentList);
+// }
+
+// function seedAllTables(db, testTopicList, testCommentList) {
+//   return db.transaction(async (trx) => {
+//     await seedTopics;
+//     await seedComments;
+//   })
+
+// }
 
 function cleanTables(db) {
   return db.raw(
@@ -84,6 +100,6 @@ function cleanTables(db) {
 module.exports = {
   createTopicArray,
   createCommentArray,
-  createFixtures,
+  // createFixtures,
   cleanTables
 };

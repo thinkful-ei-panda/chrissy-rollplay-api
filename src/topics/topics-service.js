@@ -5,33 +5,6 @@ const TopicsService = {
       .from('rollplay_topics');
   },
 
-  getTopicsBySystem(db, system) {
-    return db
-      .select('*')
-      .where('rpg_system', system);
-  },
-  
-  getTopicByName(db, name) {
-    return db
-      .select('*')
-      .from('rollplay_topics')
-      .where(
-        db.raw(
-          `LOWER(title) LIKE LOWER('%${name}%)`
-        )
-      );
-  },
-
-  getTopicsBySystemAndName(db, name, system) {
-    return db
-      .select('*')
-      .from('rollplay_topics')
-      .where(
-        db.raw(`rpg_system = '${system}'
-        and LOWER(title) like LOWER('%${name}%')`)
-      );
-  },
-
   getById(db, id) {
     return db
       .select('*')
