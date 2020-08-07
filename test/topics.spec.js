@@ -1,3 +1,5 @@
+/* eslint-disable semi */
+// eslint-disable semi
 const knex = require('knex');
 const helpers = require('./test-helpers');
 const TopicsRouter = require('../src/topics/topics-router.js');
@@ -9,7 +11,7 @@ describe('Topics Endpoints', () => {
     db = knex({
       client: 'pg',
       connection: process.env.TEST_DATABASE_URL
-    });
+    })
     TopicsRouter.set('db', db);
     after('disconnect from db', () => db.destroy());
     before('cleanup tables', () => helpers.cleanTables(db));
@@ -60,14 +62,24 @@ describe('Topics Endpoints', () => {
         return db
           .into('rollplay_topics')
           .insert(testTopics);
-      });
-    });
+      })
+    })
 
-    it('GET /topics responds with 200 and all of the topics', () => {
-      return supertest(TopicsRouter)
-        .get('/topics')
-        .expect(200, this.testTopics);
+    describe('GET /topics', () => {
+      it('should return all topics in db'), () => {
+        return supertest(TopicsRouter)
+          .get('/topics')
+          .expect(200, this.testTopics);
       // TODO: add more assertions about the body
-    });
-  });
-});
+      }})
+
+    describe('GET /topics/:topic_id', () => {
+      it('should return topic with specified id'), () => {
+        const topic_id = 2
+        const expectedTopic = this.testTopics[topic_id - 1]
+        return supertest(TopicsRouter)
+          .get(`/articles/${topic_id}`)
+          .expect(200, expectedTopic)
+      }})
+  })
+})

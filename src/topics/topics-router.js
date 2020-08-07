@@ -84,10 +84,6 @@ TopicsRouter
     })
     .catch(next);
   })
-  .get((req, res, next) => {
-    res.json(res.topic);
-  })
-
   .patch(bodyParser, (req, res, next) => {
     const { topic_id, title, topic_desc, rpg_system } = req.body;
     
