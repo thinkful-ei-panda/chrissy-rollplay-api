@@ -5,6 +5,18 @@ const bodyParser = express.json();
 const CommentsRouter = express.Router();
 
 CommentsRouter
+  .route('/comments')
+  .get((req, res, next) => {
+    CommentsService.getAllComments(req.app.get('db'))
+      .then(comments => {
+        res
+          .status(200)
+          .json(comments);
+      })
+      .catch(next);
+  });
+
+CommentsRouter
   .route('/:comment_id')
   .get((req, res, next) => {
     const id = req.params.comment_id;

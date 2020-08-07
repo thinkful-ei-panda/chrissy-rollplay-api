@@ -16,7 +16,6 @@ TopicsRouter
     if(keyword === undefined && filter === undefined) {
       TopicsService.getAllTopics(req.app.get('db'))
       .then(topics => {
-      console.log(res);
       res
         .status(200)
         .json(topics);
@@ -88,6 +87,7 @@ TopicsRouter
   .get((req, res, next) => {
     res.json(res.topic);
   })
+
   .patch(bodyParser, (req, res, next) => {
     const { topic_id, title, topic_desc, rpg_system } = req.body;
     
