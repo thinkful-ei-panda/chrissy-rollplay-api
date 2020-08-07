@@ -1,5 +1,6 @@
 /* eslint-disable semi */
 // eslint-disable semi
+const app = require('../src/app');
 const knex = require('knex');
 const helpers = require('./test-helpers');
 const TopicsRouter = require('../src/topics/topics-router.js');
@@ -12,7 +13,7 @@ describe('Topics Endpoints', () => {
       client: 'pg',
       connection: process.env.TEST_DATABASE_URL
     })
-    TopicsRouter.set('db', db);
+    app.set('db', db);
     after('disconnect from db', () => db.destroy());
     before('cleanup tables', () => helpers.cleanTables(db));
     afterEach('cleanup tables', () => helpers.cleanTables(db));
@@ -65,7 +66,7 @@ describe('Topics Endpoints', () => {
       })
     })
 
-    describe('GET /topics', () => {
+    describe('GET /topics/topics', () => {
       it('should return all topics in db'), () => {
         return supertest(TopicsRouter)
           .get('/topics')

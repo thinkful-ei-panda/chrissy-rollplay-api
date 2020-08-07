@@ -1,26 +1,31 @@
-# Express Boilerplate!
+# Rollplay XP Server
 
-This is a boilerplate project used for starting new projects!
+Server used for the Rollplay XP app.
 
-## Set up
+[Link](https://github.com/thinkful-ei-panda/chrissy-rollplay-api) to Github.
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+## API Endpoints
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
++ `/topics/topics` accepts GET requests returning all entries in the rollplay_topics table, as  well as POST requests to add a new rows.
+
++ `/topics/:topic_id` accepts PATCH and DELETE requests, targeting rows by topic_id.
+
++ `/comments` accepts GET requests, returning all entries in the rollplay_comments table.
+
++ `/comments/:comment_id` accepts GET, POST, PATCH, and DELETE requests targeting rows of the rollplay_comments table by comment_id.
 
 ## Scripts
 
-Start the application `npm start`
++ Start the application `npm start`
 
-Start nodemon for the application `npm run dev`
++ Start nodemon for the application `npm run dev`
 
-Run the tests `npm test`
++ Run the tests `npm test`
 
-## Deploying
++ Migrate the Tables into database ` npm run migrate ` or ` npm run migrate:test `
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
++ Seed Tables with data after migration `npm run seed`
+
+## Deployment
+
+This Server is deployed with Heroku at `https://blooming-reef-26525.herokuapp.com`.

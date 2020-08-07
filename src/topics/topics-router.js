@@ -9,11 +9,6 @@ const TopicsRouter = express.Router();
 TopicsRouter
   .route('/topics')
   .get((req, res, next) => {
-    let keyword;
-    keyword = req.query.keyword;
-    let filter;
-    filter = req.query.filter;
-    if(keyword === undefined && filter === undefined) {
       TopicsService.getAllTopics(req.app.get('db'))
       .then(topics => {
       res
@@ -22,34 +17,7 @@ TopicsRouter
       })
       .catch(next);
     }
-    else if(keyword === undefined && filter !== undefined) {
-      TopicsService.getTopicsBySystem(req.app.get('db'), filter)
-      .then(topics => {
-      res
-        .status(200)
-        .json(topics);
-      })
-      .catch(next);
-    }
-    else if(keyword !== undefined && filter !== undefined) {
-      TopicsService.getTopicsBySystemAndName(req.app.get('db'), keyword, filter)
-      .then(topics => {
-      res
-        .status(200)
-        .json(topics);
-      })
-      .catch(next);
-    }
-    else if(keyword !== undefined && filter === undefined) {
-      TopicsService.getTopicByName(req.app.get('db'), keyword)
-      .then(topics => {
-      res
-        .status(200)
-        .json(topics);
-      })
-      .catch(next);
-    }
-  })
+  )
   .post(bodyParser, (req, res, next) => {
     const { title, topic_desc, rpg_system, topic_owner, topic_passphrase } = req.body;
     const newTopic = { title: title, topic_desc: topic_desc, rpg_system: rpg_system, topic_owner: topic_owner, topic_passphrase: topic_passphrase };
