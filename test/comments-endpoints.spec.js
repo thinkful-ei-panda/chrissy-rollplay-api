@@ -96,7 +96,7 @@ describe('Comments Endpoints', () => {
     })
     it(`editComment() changes information about a comment row in the table`, () => {
       const idOfEdit = 5;
-      const editPass= 'dummy'
+      const editPass= "'dummy'"
       const newCommentData = {
         comment_id: 5,
         comment_desc: 'woopwoopwoop',
