@@ -17,7 +17,7 @@ describe('Comments Endpoints', () => {
       date_created: new Date('2020-07-28 12:00:00'),
       comment_thread: 1,
       comment_owner: "1",
-      comment_passphrase: 'dummy',
+      comment_passphrase: "'dummy'",
       marked_solution: false
     },
     {
@@ -26,7 +26,7 @@ describe('Comments Endpoints', () => {
       date_created: new Date('2020-07-28 12:00:00'),
       comment_thread: 2,
       comment_owner: "2",
-      comment_passphrase: 'dummy',
+      comment_passphrase: "'dummy'",
       marked_solution: false
     },
     {
@@ -35,7 +35,7 @@ describe('Comments Endpoints', () => {
       date_created: new Date('2020-07-28 12:00:00'),
       comment_thread: 3,
       comment_owner: "3",
-      comment_passphrase: 'dummy',
+      comment_passphrase: "'dummy'",
       marked_solution: false
     }
   ];
@@ -79,7 +79,7 @@ describe('Comments Endpoints', () => {
         date_created: new Date('2029-01-22T16:28:32.615Z'),
         comment_thread: 3,
         comment_owner: "7",
-        comment_passphrase: 'dummy',
+        comment_passphrase: "'dummy'",
         marked_solution: false
       }
       return CommentsService.postNewComment(db, newComment).then(actual => {
@@ -89,7 +89,7 @@ describe('Comments Endpoints', () => {
           date_created: new Date('2029-01-22T16:28:32.615Z'),
           comment_thread: 3,
           comment_owner: "7",
-          comment_passphrase: 'dummy',
+          comment_passphrase: "'dummy'",
           marked_solution: false
         })
       })  
@@ -103,40 +103,42 @@ describe('Comments Endpoints', () => {
         date_created: new Date('2020-07-28 12:00:00'),
         comment_thread: 2,
         comment_owner:'9',
-        comment_passphrase: 'dummy',
+        comment_passphrase: "'dummy'",
         marked_solution: false
       }
-      return CommentsService.editComment(db, idOfEdit, editPass, newCommentData).then(() => CommentsService.getAllComments(db)).then(allComments => {
-        const editedTestComments = [
-          {
-            comment_id: 4,
-            comment_desc: 'Test comment desc',
-            date_created: new Date('2020-07-28 12:00:00'),
-            comment_thread: 1,
-            comment_owner: "1",
-            comment_passphrase: 'dummy',
-            marked_solution: false
-          },
-          {
-            comment_id: 5,
-            comment_desc: 'woopwoopwoop',
-            date_created: new Date('2020-07-28 12:00:00'),
-            comment_thread: 2,
-            comment_owner:'9',
-            comment_passphrase: 'dummy',
-            marked_solution: false
-          },
-          {
-            comment_id: 6,
-            comment_desc: 'Test comment desc3',
-            date_created: new Date('2020-07-28 12:00:00'),
-            comment_thread: 3,
-            comment_owner: "3",
-            comment_passphrase: 'dummy',
-            marked_solution: false
-          }
-        ];
-        expect(allComments).to.eql(editedTestComments)
+      return CommentsService.editComment(db, idOfEdit, editPass, newCommentData).then((resp) => {
+        CommentsService.getAllComments(db).then(allComments => {
+          const editedTestComments = [
+            {
+              comment_id: 4,
+              comment_desc: 'Test comment desc',
+              date_created: new Date('2020-07-28 12:00:00'),
+              comment_thread: 1,
+              comment_owner: "1",
+              comment_passphrase: "'dummy'",
+              marked_solution: false
+            },
+            {
+              comment_id: 5,
+              comment_desc: 'woopwoopwoop',
+              date_created: new Date('2020-07-28 12:00:00'),
+              comment_thread: 2,
+              comment_owner:'9',
+              comment_passphrase: "'dummy'",
+              marked_solution: false
+            },
+            {
+              comment_id: 6,
+              comment_desc: 'Test comment desc3',
+              date_created: new Date('2020-07-28 12:00:00'),
+              comment_thread: 3,
+              comment_owner: "3",
+              comment_passphrase: "'dummy'",
+              marked_solution: false
+            }
+          ];
+          expect(allComments).to.eql(editedTestComments)
+        })
       })
     })
     it(`deleteComment() removes a comment by id from the table`, () => {
