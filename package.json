@@ -9,11 +9,13 @@
     "start": "node src/server.js",
     "predeploy": "npm audit",
     "deploy": "git push heroku master",
+    "postdeploy": "npm run migrate:production",
     "migrate": "postgrator --config postgrator-config.js",
-    "migrate:test": "env NODE_ENV=test npm run migrate"
+    "migrate:test": "env NODE_ENV=test npm run migrate",
+    "migrate:production": "env NODE_ENV=development npm run migrate"
   },
   "keywords": [],
-  "author": "",
+  "author": "Chrissy Harmon",
   "license": "ISC",
   "dependencies": {
     "auth-service": "^1.0.0",
@@ -27,8 +29,8 @@
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.2",
     "morgan": "^1.10.0",
-    "pg": "^8.3.0",
-    "postgrator": "^4.0.1"
+    "pg": "^7.18.2",
+    "postgrator": "^3.2.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
