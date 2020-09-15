@@ -15,7 +15,7 @@ const CommentsService = {
   },
 
   postNewComment(db, newComment) {
-    return db
+    return db('rollplay_comments')
       .insert(newComment)
       .into('rollplay_comments')
       .returning('*')
