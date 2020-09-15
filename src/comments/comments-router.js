@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 const express = require('express');
 const CommentsService = require('./comments-service.js');
 const bodyParser = express.json();
@@ -28,6 +29,25 @@ CommentsRouter
       })
       .catch(next);
   })
+
+    // .post(bodyParser, (req, res, next) => {
+    //   const { title, topic_desc, rpg_system, topic_owner, topic_passphrase } = req.body;
+    //   const newTopic = { title: title, topic_desc: topic_desc, rpg_system: rpg_system, topic_owner: topic_owner, topic_passphrase: topic_passphrase };
+      
+    //   if( title === null || topic_desc === null )
+    //     return res.status(400).json({error: `Missing 'Title' and 'Description' in request body`});
+
+    //   TopicsService.postNewTopic(
+    //     req.app.get('db'),
+    //     newTopic
+    //   )
+    //     .then(() => {
+    //       res
+    //         .status(201).json({message: 'Topic created'});
+    //     })
+    //     .catch(next);
+    // });
+    
   .post(bodyParser, (req, res, next) => {
     const { comment_desc, comment_thread, comment_owner, comment_passphrase } = req.body;
     const newComment = { comment_desc: comment_desc, comment_thread: comment_thread, comment_owner: comment_owner, comment_passphrase: comment_passphrase };
