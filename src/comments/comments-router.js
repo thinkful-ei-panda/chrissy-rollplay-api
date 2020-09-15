@@ -79,12 +79,13 @@ CommentsRouter
       })
       .catch(next);
   })
+
   .delete(bodyParser, (req, res, next) => {
-    const { comment_id } = req.params;
+    const { comment_thread } = req.params;
 
     CommentsService.deleteComment(
       req.app.get('db'),
-      comment_id
+      comment_thread
     )
       .then(() => {
         res
