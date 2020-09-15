@@ -29,24 +29,6 @@ CommentsRouter
       })
       .catch(next);
   })
-
-    // .post(bodyParser, (req, res, next) => {
-    //   const { title, topic_desc, rpg_system, topic_owner, topic_passphrase } = req.body;
-    //   const newTopic = { title: title, topic_desc: topic_desc, rpg_system: rpg_system, topic_owner: topic_owner, topic_passphrase: topic_passphrase };
-      
-    //   if( title === null || topic_desc === null )
-    //     return res.status(400).json({error: `Missing 'Title' and 'Description' in request body`});
-
-    //   TopicsService.postNewTopic(
-    //     req.app.get('db'),
-    //     newTopic
-    //   )
-    //     .then(() => {
-    //       res
-    //         .status(201).json({message: 'Topic created'});
-    //     })
-    //     .catch(next);
-    // });
     
   .post(bodyParser, (req, res, next) => {
     const { comment_desc, comment_thread, comment_owner, comment_passphrase } = req.body;
@@ -78,14 +60,16 @@ CommentsRouter
         return res.status(204).end();
       })
       .catch(next);
-  })
+  });
 
+CommentsRouter
+  .route('/:comment_id')
   .delete(bodyParser, (req, res, next) => {
-    const { comment_thread } = req.params;
+    const { comment_id } = req.params;
 
     CommentsService.deleteComment(
       req.app.get('db'),
-      comment_thread
+      comment_id
     )
       .then(() => {
         res

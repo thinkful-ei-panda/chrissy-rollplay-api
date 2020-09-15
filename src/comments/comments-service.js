@@ -31,9 +31,9 @@ const CommentsService = {
       );
   },
 
-  deleteComment(db, comment_thread) {
+  deleteComment(db, comment_id) {
     return db('rollplay_comments')
-      .where({comment_thread})
+      .where({comment_id})
       .delete();
   }
 };
