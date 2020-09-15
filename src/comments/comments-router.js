@@ -59,7 +59,7 @@ CommentsRouter
       })
       .catch(next);
   })
-  .delete((req, res, next) => {
+  .delete(bodyParser, (req, res, next) => {
     const { comment_id } = req.params;
 
     CommentsService.deleteComment(
