@@ -60,7 +60,7 @@ CommentsRouter
       .catch(next);
   })
   .delete((req, res, next) => {
-    const comment_id = req.params.comment_id;
+    const { comment_id } = req.params;
 
     CommentsService.deleteComment(
       req.app.get('db'),
