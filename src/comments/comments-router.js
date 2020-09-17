@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 const express = require('express');
 const CommentsService = require('./comments-service.js');
 const bodyParser = express.json();
@@ -29,7 +28,6 @@ CommentsRouter
       })
       .catch(next);
   })
-    
   .post(bodyParser, (req, res, next) => {
     const { comment_desc, comment_thread, comment_owner, comment_passphrase } = req.body;
     const newComment = { comment_desc: comment_desc, comment_thread: comment_thread, comment_owner: comment_owner, comment_passphrase: comment_passphrase };
@@ -60,12 +58,9 @@ CommentsRouter
         return res.status(204).end();
       })
       .catch(next);
-  });
-
-CommentsRouter
-  .route('/:comment_id')
-  .delete(bodyParser, (req, res, next) => {
-    const { comment_id } = req.params;
+  })
+  .delete((req, res, next) => {
+    const comment_id = req.params.comment_id;
 
     CommentsService.deleteComment(
       req.app.get('db'),
