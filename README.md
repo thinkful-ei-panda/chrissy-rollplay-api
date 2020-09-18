@@ -2,7 +2,7 @@
 
 Server used for the Rollplay XP app.
 
-[Link](https://github.com/charmonica/chrissy-rollplay-client) to Github.
+[Link](https://github.com/charmonica/chrissy-rollplay-client) to Client Github.
 
 [Link](https://rollplay-client.vercel.app/) to Live Site
 
